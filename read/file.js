@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const xlsx = require('xlsx');
 const EventEmitter = require("events");
 
 class File extends EventEmitter {
@@ -10,23 +11,18 @@ class File extends EventEmitter {
 		this.functionName = "";
 	};	
 	getFileProperty(fileName){
-			let fN = this.functionName;
 				for(let file in fileName){
-					fs.readFile(path.join(this.dir,fileName[file]),"utf-8",(err,data)=>{
-						if(err) {throw new err;}
-					this.emit(fN,data);
-					});
-				}
+					let worksheet = xlsx.readFile(path.join(this.dir,fileName[file]));
+					this.tab.push(worksheet);
+					}
 	};
 	openDir(){
-		fs.readdir(path.join(this.dir),(err,files)=>{
-			if(err) {throw new err;}
-				this.getFileProperty(files);
-		});
+		let fileName = fs.readdirSync(path.join(this.dir));
+		this.getFileProperty(fileName);
 	};
-	setCallback(name,cb){
-		this.functionName = name;
-		this.on(name,cb);
+	getTab(){
+		return this.tab;
 	}
+
 }
 module.exports = File;
