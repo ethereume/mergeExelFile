@@ -7,7 +7,7 @@ f.getTab().forEach((file)=>{
 	//console.log(file);
 	combine(file);
 });
-XLSX.writeFile(makeEXEL("Merge",file.sheet_from_array_of_arrays),'merge.xlsx');
+XLSX.writeFile(makeEXEL("Merge"),'merge.xlsx');
 //console.log(tab);
 
 /* original data 
