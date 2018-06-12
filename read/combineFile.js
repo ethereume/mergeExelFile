@@ -1,9 +1,11 @@
 const vertical = ["A","B","C","D","E","F","G"];
 const horizontal = 6;
-
+let sheet = null;
+let tabsArray = [];
 const combine = (sheets,fileNames) => {
 	fileNames = replaceAll(fileNames);
 	readRange(sheets,fileNames);
+	console.log(tabsArray);
 }
 const replaceR = (string) =>{
 	return string.replace(/\.(xls|xlsx)$/,"");
@@ -13,28 +15,28 @@ const replaceAll = (tabStrings) => {
 		return replaceR(tab);
 	})
 }
-let tabsArray = [];
 const readRange = (sheets,fileNames) =>{
 	let firstRange = 2;
 	for (let i = 0;i<sheets.length;i++) {
-			let sheet = sheets[i].Sheets[fileNames[i]];
+		tabsArray.push([{v:"------------- Plik exelowy "+fileNames[i]+"-----------------"}]);	
+			sheet = sheets[i].Sheets[fileNames[i]];
 			//console.log(sheet);
 			let beginRange = horizontal + firstRange;
 			for(let c = firstRange;c<beginRange;c++){
-				tabsArray.push(getDataFromSheet(c,sheet));
+				tabsArray.push(getDataFromSheet(c));
 			}
 		firstRange = 2;	
 	}
 }
 
-const getDataFromSheet = (number,sheet) =>{
-	let tmpTab;
+const getDataFromSheet = (number) =>{
+	let tmpTab = [];
 	//console.log(vertical);
 	vertical.forEach((letter)=>{
 		//console.log(letter);
 		//console.log(number);
 		let combineString = letter+number;
-		console.log(sheet[combineString]);
+		//console.log(sheet[combineString]);
 		tmpTab.push(sheet[combineString]);
 	});
 	return tmpTab;
