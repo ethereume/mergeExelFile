@@ -9,17 +9,22 @@ class File extends EventEmitter {
 		this.dir = dirToOpen;
 		this.tab = [];
 		this.functionName = "";
+		this.FileNames = [];
 	};	
 	getFileProperty(fileName){
-				for(let file in fileName){
-					let worksheet = xlsx.readFile(path.join(this.dir,fileName[file]));
-					this.tab.push(worksheet);
-					}
+		for(let file in fileName){
+			let worksheet = xlsx.readFile(path.join(this.dir,fileName[file]));
+			this.tab.push(worksheet);
+		}
 	};
 	openDir(){
 		let fileName = fs.readdirSync(path.join(this.dir));
+		this.FileNames = fileName;
 		this.getFileProperty(fileName);
 	};
+	getFileNames() {
+		return this.FileNames;
+	}
 	getTab(){
 		return this.tab;
 	};

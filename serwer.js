@@ -3,11 +3,11 @@ const XLSX = require('xlsx');
 const {combine,makeEXEL} = require('./read/combineFile.js');
 let f = new file("exel");
 f.openDir();
-f.getTab().forEach((file)=>{
+	//let plik = JSON.stringify(file.Sheets["103103 - KFC M1 MARKI"].A1);
 	//console.log(file);
-	combine(file);
-});
-XLSX.writeFile(makeEXEL("Merge"),'merge.xlsx');
+combine(f.getTab(),f.getFileNames());
+
+//XLSX.writeFile(makeEXEL("Merge"),'merge.xlsx');
 //console.log(tab);
 
 /* original data 

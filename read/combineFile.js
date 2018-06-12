@@ -1,12 +1,45 @@
-let ArrayOfTables = [];
-let combine = (file) => {
-	if(file != undefined){
-		//console.log(file);
-		ArrayOfTables.push(file);
-		//console.log("--------------------------------------------------------------------------------");
+const vertical = ["A","B","C","D","E","F","G"];
+const horizontal = 6;
+
+const combine = (sheets,fileNames) => {
+	fileNames = replaceAll(fileNames);
+	readRange(sheets,fileNames);
+}
+const replaceR = (string) =>{
+	return string.replace(/\.(xls|xlsx)$/,"");
+}
+const replaceAll = (tabStrings) => {
+	return tabStrings.map((tab)=>{
+		return replaceR(tab);
+	})
+}
+let tabsArray = [];
+const readRange = (sheets,fileNames) =>{
+	let firstRange = 2;
+	for (let i = 0;i<sheets.length;i++) {
+			let sheet = sheets[i].Sheets[fileNames[i]];
+			//console.log(sheet);
+			let beginRange = horizontal + firstRange;
+			for(let c = firstRange;c<beginRange;c++){
+				tabsArray.push(getDataFromSheet(c,sheet));
+			}
+		firstRange = 2;	
 	}
 }
-function sheet_from_array_of_arrays(data) {
+
+const getDataFromSheet = (number,sheet) =>{
+	let tmpTab;
+	//console.log(vertical);
+	vertical.forEach((letter)=>{
+		//console.log(letter);
+		//console.log(number);
+		let combineString = letter+number;
+		console.log(sheet[combineString]);
+		tmpTab.push(sheet[combineString]);
+	});
+	return tmpTab;
+}
+const sheet_from_array_of_arrays = (data) => {
 	var ws = {};
 	var range = {s: {c:10000000, r:10000000}, e: {c:0, r:0 }};
 	for(var R = 0; R != data.length; ++R) {
@@ -33,9 +66,11 @@ function sheet_from_array_of_arrays(data) {
 	if(range.s.c < 10000000) ws['!ref'] = xlsx.utils.encode_range(range);
 	return ws;
 	};
-let makeEXEL = (fileName,cb) => {
-	//console.log("--------------------------------------------------------------------------------");
-	//console.log(ArrayOfTables);
+const makeEXEL = (fileName,cb) => {
+
+
+
+
 	
 	function Workbook() {
 		if(!(this instanceof Workbook)) return new Workbook();
