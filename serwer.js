@@ -7,7 +7,7 @@ f.openDir();
 	//console.log(file);
 combine(f.getTab(),f.getFileNames());
 //makeEXEL("Merge");
-var data = [[1,2,3],[true, false, null, "sheetjs"],["foo","bar",new Date("2014-02-19T14:30Z"), "0.3"], ["baz", null, "qux"]];
+var data = [[1,2,3],[true, false, null, "sheetjs"],["foo","bar","asd", "0.3"], ["baz", null, "qux"]];
 XLSX.writeFile(makeEXEL("Merge",data),'merge.xlsx');
 //console.log(tab);
 
