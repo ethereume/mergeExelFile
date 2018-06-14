@@ -1,4 +1,4 @@
-const xlsx = require('xlsx');
+const XLSX = require('xlsx');
 const vertical = ["A","B","C","D","E","F","G"];
 const horizontal = 6;
 let sheet = null;
@@ -47,19 +47,7 @@ const getDataFromSheet = (number) =>{
 	});
 	return tmpTab;
 }
-const makeFile = (data) => {
-		let tab = [];
-		data.forEach((obj)=>{
-				tab.push({v:obj.sheet});
-				obj.parameter.forEach((pojedyncza)=>{
-					//console.log(pojedyncza);
-					tab = [...tab,...pojedyncza];
-				});
-		});
-		
-	};
-
-function sheet_from_array_of_arrays(data) {
+const sheet_from_array_of_arrays = (data) => {
 	var ws = {};
 	var range = {s: {c:10000000, r:10000000}, e: {c:0, r:0 }};
 	for(var R = 0; R != data.length; ++R) {
@@ -82,7 +70,29 @@ function sheet_from_array_of_arrays(data) {
 	if(range.s.c < 10000000) ws['!ref'] = XLSX.utils.encode_range(range);
 	return ws;
 }
-const makeEXEL = (fileName) => {
+const makeFile = (data) => {
+		const getNames = (obj) => {
+			if(obj === undefined) {
+				return "brak";
+			} else {
+				return obj.v;
+			}
+		};	
+		let tab = [];
+		let t = [];
+		data.forEach((obj)=>{
+				tab.push({v:obj.sheet});
+				obj.parameter.forEach((pojedyncza)=>{
+					tab = [...tab,...pojedyncza];
+				});
+			t.push(tab.map((obj)=>{
+				return getNames(obj);
+			}));
+			tab = [];
+		});
+	return sheet_from_array_of_arrays(t);
+};
+const makeEXEL = (fileName,tab) => {
 
 	function Workbook() {
 		if(!(this instanceof Workbook)) return new Workbook();
@@ -91,7 +101,8 @@ const makeEXEL = (fileName) => {
 	}
 	let work = new Workbook();
 	work.SheetNames.push(fileName);
-	work[fileName] = makeFile(tabsArray);
+	//work[fileName] = makeFile(tabsArray);
+	work[fileName] = sheet_from_array_of_arrays(tab);
 	//console.log(work[fileName]);
 	return work;
 }
