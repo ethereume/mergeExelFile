@@ -6,7 +6,7 @@ f.openDir();
 	//let plik = JSON.stringify(file.Sheets["103103 - KFC M1 MARKI"].A1);
 	//console.log(file);
 combine(f.getTab(),f.getFileNames());
-
+makeEXEL("Merge");
 //XLSX.writeFile(makeEXEL("Merge"),'merge.xlsx');
 //console.log(tab);
 
