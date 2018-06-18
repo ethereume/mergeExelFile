@@ -70,6 +70,26 @@ const sheet_from_array_of_arrays = (data) => {
 	if(range.s.c < 10000000) ws['!ref'] = XLSX.utils.encode_range(range);
 	return ws;
 }
+const makeHorizontalArrays = (array) =>{
+	let k = 7,tabTMP = [],tabInArray = [];
+
+	for(var j = 0;j<array.length;j++){
+		tabTMP.push([array[j][0]]);
+		for(var i = 1;i<array[j].length;i++){
+				if(i != k){
+					tabInArray.push(array[j][i]);
+				} else {
+					tabInArray.push(array[j][i]);
+					tabTMP.push(tabInArray);
+					tabInArray = [];
+					k +=7;
+				}
+		}
+		k = 7;
+		tabInArray = [];
+	}
+	return tabTMP;
+};
 const makeFile = (data) => {
 		const getNames = (obj) => {
 			if(obj === undefined) {
@@ -90,8 +110,9 @@ const makeFile = (data) => {
 			}));
 			tab = [];
 		});
-	return sheet_from_array_of_arrays(t);
+	return sheet_from_array_of_arrays(makeHorizontalArrays(t));
 };
+//var data = [[1,2,3],[true, false, null, "sheetjs"],["foo","bar",new Date("2014-02-19T14:30Z"), "0.3"], ["baz", null, "qux"]]
 const makeEXEL = (fileName) => {
 
 	function Workbook() {
@@ -101,7 +122,6 @@ const makeEXEL = (fileName) => {
 	}
 	let work = new Workbook();
 	work.SheetNames.push(fileName);
-	//work[fileName] = makeFile(tabsArray);
 	work.Sheets[fileName] = makeFile(tabsArray);
 	//console.log(work[fileName]);
 	return work;
