@@ -92,7 +92,7 @@ const makeFile = (data) => {
 		});
 	return sheet_from_array_of_arrays(t);
 };
-const makeEXEL = (fileName,tab) => {
+const makeEXEL = (fileName) => {
 
 	function Workbook() {
 		if(!(this instanceof Workbook)) return new Workbook();
@@ -102,7 +102,7 @@ const makeEXEL = (fileName,tab) => {
 	let work = new Workbook();
 	work.SheetNames.push(fileName);
 	//work[fileName] = makeFile(tabsArray);
-	work[fileName] = sheet_from_array_of_arrays(tab);
+	work.Sheets[fileName] = makeFile(tabsArray);
 	//console.log(work[fileName]);
 	return work;
 }
