@@ -9,7 +9,6 @@ class File extends EventEmitter {
 		this.dir = dirToOpen;
 		this.tab = [];
 		this.functionName = "";
-		this.FileNames = [];
 	};	
 	getFileProperty(fileName){
 		for(let file in fileName){
@@ -19,12 +18,8 @@ class File extends EventEmitter {
 	};
 	openDir(){
 		let fileName = fs.readdirSync(path.join(this.dir));
-		this.FileNames = fileName;
 		this.getFileProperty(fileName);
 	};
-	getFileNames() {
-		return this.FileNames;
-	}
 	getTab(){
 		return this.tab;
 	};

@@ -1,12 +1,13 @@
 const XLSX = require('xlsx');
 const vertical = ["A","B","C","D","E","F","G"];
 const horizontal = 6;
-let sheet = null;
 let tabsArray = [];
-const combine = (sheets,fileNames) => {
-	fileNames = replaceAll(fileNames);
-	readRange(sheets,fileNames);
+let sheet = null;
+const combine = (sheets) => {
+	//fileNames = replaceAll(fileNames);
+	readRange(sheets);
 }
+/*
 const replaceR = (string) =>{
 	return string.replace(/\.(xls|xlsx)$/,"");
 }
@@ -14,19 +15,25 @@ const replaceAll = (tabStrings) => {
 	return tabStrings.map((tab)=>{
 		return replaceR(tab);
 	})
-}
-const readRange = (sheets,fileNames) =>{
+}*/
+const readRange = (sheets) =>{
 	let firstRange = 2;
 	let obj = {}
 	let arrayTmp = [];
 	for (let i = 0;i<sheets.length;i++) {
-		obj.sheet = fileNames[i];
-			sheet = sheets[i].Sheets[fileNames[i]];
-			//console.log(sheet);
+		obj.sheet = null;
+			for(var key in sheets[i].Sheets){
+					obj.sheet = key;
+				}
+			sheet = sheets[i].Sheets[obj.sheet];
+	
 			let beginRange = horizontal + firstRange;
+
 			for(let c = firstRange;c<beginRange;c++){
+				//console.log(c);
 				arrayTmp.push(getDataFromSheet(c));
 			}
+			//console.log("-------------------");
 		firstRange = 2;
 		obj.parameter = arrayTmp;
 		tabsArray.push(obj);
@@ -41,9 +48,10 @@ const getDataFromSheet = (number) =>{
 	vertical.forEach((letter)=>{
 		//console.log(letter);
 		//console.log(number);
+		
 		let combineString = letter+number;
 		//console.log(sheet[combineString]);
-		tmpTab.push(sheet[combineString]);
+		tmpTab.push(sheet[combineString]);	
 	});
 	return tmpTab;
 }
