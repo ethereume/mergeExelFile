@@ -16,6 +16,13 @@ const replaceAll = (tabStrings) => {
 		return replaceR(tab);
 	})
 }*/
+const checkTypeOfFile = (plik) =>{
+	if(plik["A1"].v === "SPRZĘT"){
+		return true;
+	} else {
+		return false;
+	}
+}
 const readRange = (sheets) =>{
 	let firstRange = 2;
 	let obj = {}
@@ -25,8 +32,11 @@ const readRange = (sheets) =>{
 			for(var key in sheets[i].Sheets){
 					obj.sheet = key;
 				}
+			//console.log(obj.sheet);
 			sheet = sheets[i].Sheets[obj.sheet];
-	
+			if(!checkTypeOfFile(sheet)){
+				firstRange = 1;
+			}
 			let beginRange = horizontal + firstRange;
 
 			for(let c = firstRange;c<beginRange;c++){
