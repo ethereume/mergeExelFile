@@ -30,17 +30,13 @@ class File extends EventEmitter {
 		}
 		fileName.forEach((folder)=>{
 			//console.log(folder);
-			fs.stat(pathInside,(err,stat)=>{
-				//console.log(stat);
-				if(err){
-					console.log(`Blad w pliku ${err}`);
-					return;
-				}
-				if(stat.isDirectory()){
+			let st = fs.statSync(path.join(pathInside,folder));
+
+				if(st.isDirectory()){
 					//console.log("Znalazłem folder !!");
 					let p = path.join(pathInside,folder);
-					//console.log(p);
-					console.log(folder);
+					console.log("Znalazlem folder");
+					//console.log(st);
 					try {
 						this.openDir(p);
 					} catch(err){
@@ -49,7 +45,7 @@ class File extends EventEmitter {
 				} else {
 					console.log("Znalazłem pliki !!");
 				}
-			});
+
 		});
 		//this.getFileProperty(fileName);
 	};
