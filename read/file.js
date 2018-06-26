@@ -21,22 +21,20 @@ class File extends EventEmitter {
 			pathInside = "";
 		if(!pathFile){
 			pathInside = path.join(this.dir);
-			//console.log("Za pierwszym razem "+pathInside);
 			fileName = fs.readdirSync(pathInside);
 		} else {
 			pathInside = pathFile;
-			//console.log("Za kazdym innym razem "+pathInside);
 			fileName = fs.readdirSync(pathInside);
 		}
 		fileName.forEach((folder)=>{
-			//console.log(folder);
-			let st = fs.statSync(path.join(pathInside,folder));
-
-				if(st.isDirectory()){
-					//console.log("Znalazłem folder !!");
+			fs.stat(path.join(pathInside,folder),(err,stat)=>{
+				if(err){
+					console.log(`Blad w pliku ${err}`);
+					return;
+				}
+				if(stat.isDirectory()){
 					let p = path.join(pathInside,folder);
-					console.log("Znalazlem folder");
-					//console.log(st);
+					console.log("Znaleziono folder");
 					try {
 						this.openDir(p);
 					} catch(err){
@@ -46,12 +44,12 @@ class File extends EventEmitter {
 					console.log("Znalazłem pliki !!");
 				}
 
-		});
+			});
 		//this.getFileProperty(fileName);
-	};
+		});
+	};	
 	getTab(){
 		return this.tab;
 	};
-
 }
 module.exports = File;
