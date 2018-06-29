@@ -7,15 +7,6 @@ const combine = (sheets) => {
 	//fileNames = replaceAll(fileNames);
 	readRange(sheets);
 }
-/*
-const replaceR = (string) =>{
-	return string.replace(/\.(xls|xlsx)$/,"");
-}
-const replaceAll = (tabStrings) => {
-	return tabStrings.map((tab)=>{
-		return replaceR(tab);
-	})
-}*/
 const checkTypeOfFile = (plik) =>{
 	if(plik["A1"].v === "SPRZĘT"){
 		return true;

@@ -10,11 +10,17 @@ class File extends EventEmitter {
 		this.tab = [];
 		this.functionName = "";
 	};	
-	getFileProperty(fileName){
-		for(let file in fileName){
-			let worksheet = xlsx.readFile(path.join(this.dir,fileName[file]));
-			this.tab.push(worksheet);
-		}
+	getFileProperty(path_,fileName){
+		//for(let file in fileName){
+			if(this.replaceR(fileName)){
+				//let worksheet = xlsx.readFile(path.join(this.dir,fileName[file]));
+				let worksheet = xlsx.readFile(path_);
+				this.tab.push(worksheet);
+			}
+		//}
+	};
+	replaceR(string){
+		return (string.match(/\.(xls|xlsx)$/) == null ? false : true);
 	};
 	openDir(pathFile){
 		let fileName = [],
@@ -32,16 +38,16 @@ class File extends EventEmitter {
 					console.log(`Blad w pliku ${err}`);
 					return;
 				}
+				let p = path.join(pathInside,folder);
 				if(stat.isDirectory()){
-					let p = path.join(pathInside,folder);
-					console.log("Znaleziono folder");
+					//console.log("Znaleziono folder");
 					try {
 						this.openDir(p);
 					} catch(err){
 						console.log(err);
 					}
 				} else {
-					console.log("Znalazłem pliki !!");
+					this.getFileProperty(p,folder);
 				}
 
 			});
