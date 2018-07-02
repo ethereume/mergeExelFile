@@ -1,11 +1,9 @@
 const fs = require("fs");
 const path = require("path");
 const xlsx = require('xlsx');
-const EventEmitter = require("events");
 
-class File extends EventEmitter {
+class File {
 	constructor(dirToOpen){
-		super();
 		this.dir = dirToOpen;
 		this.tab = [];
 		this.functionName = "";
