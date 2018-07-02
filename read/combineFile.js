@@ -1,4 +1,5 @@
 const XLSX = require('xlsx');
+const random = require('randomstring');
 const vertical = ["A","B","C","D","E","F","G"];
 const horizontal = 6;
 let tabsArray = [];
@@ -121,6 +122,19 @@ const makeFile = (data) => {
 		});
 	return sheet_from_array_of_arrays(makeHorizontalArrays(t));
 };
+const generateFileNames = () =>{
+	return random.generate({
+		length:5,
+		charset:'alphabetic',
+		capitalization:'lowercase'  
+	});
+}
+const generateDate = () =>{
+	let  d = new Date();
+	let day = d.getDay() < 10 ? "0"+d.getDay():d.getDay();
+	let month =  d.getMonth() < 10 ? "0"+(d.getMonth()+1):d.getMonth() + 1; 
+	return `${day}.${month}.${d.getFullYear()}`;
+};
 const makeEXEL = (fileName) => {
 
 	function Workbook() {
@@ -136,5 +150,7 @@ const makeEXEL = (fileName) => {
 }
 module.exports = {
 	combine,
-	makeEXEL
+	makeEXEL,
+	generateFileNames,
+	generateDate
 }

@@ -14,6 +14,7 @@ class File extends EventEmitter {
 		//for(let file in fileName){
 			if(this.replaceR(fileName)){
 				//let worksheet = xlsx.readFile(path.join(this.dir,fileName[file]));
+				console.log(`Dodaje plik ${fileName}`);
 				let worksheet = xlsx.readFile(path_);
 				this.tab.push(worksheet);
 			}
@@ -33,14 +34,14 @@ class File extends EventEmitter {
 			fileName = fs.readdirSync(pathInside);
 		}
 		fileName.forEach((folder)=>{
-			fs.stat(path.join(pathInside,folder),(err,stat)=>{
-				if(err){
-					console.log(`Blad w pliku ${err}`);
+			let stat = fs.statSync(path.join(pathInside,folder));
+				if(!stat){
+					console.log(`Blad w krytyczny w pliku ${stat} przerywam`);
 					return;
 				}
 				let p = path.join(pathInside,folder);
 				if(stat.isDirectory()){
-					//console.log("Znaleziono folder");
+					console.log(`Znaleziono folder ${folder}`);
 					try {
 						this.openDir(p);
 					} catch(err){
@@ -49,9 +50,6 @@ class File extends EventEmitter {
 				} else {
 					this.getFileProperty(p,folder);
 				}
-
-			});
-		//this.getFileProperty(fileName);
 		});
 	};	
 	getTab(){
