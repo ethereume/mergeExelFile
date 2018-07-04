@@ -6,6 +6,7 @@ class consoleRead  {
 		this.error = [];
 	}
 	getParameter(param){
+		console.log(args);
 		let isParamter = args.indexOf(`--${param}`);
 		if(isParamter !== -1 && args[isParamter+1] !== "undefined"){
 			this.tab.push(args[isParamter+1]);
@@ -22,6 +23,7 @@ class consoleRead  {
 		return this.error;
 	}
 	getOneParameter(name){
+		console.log(this.tab);
 		this.tab.forEach((param)=>{
 			if(param == name){
 				return getParameter(name);

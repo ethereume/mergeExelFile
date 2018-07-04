@@ -1,9 +1,18 @@
 const XLSX = require('xlsx');
 const random = require('randomstring');
-const vertical = ["A","B","C","D","E","F","G"];
-const horizontal = 6;
+let vertical = null;
+let horizontal = null;
+let firstRange = null;
 let tabsArray = [];
 let sheet = null;
+
+const setStartParameter = (arr) =>{
+	console.log(arr);
+	horizontal = arr[0] || 6;
+	firstRange = arr[1] || 2;
+	vertical = arr[2]|| ["A","B","C","D","E","F","G"];
+}
+
 const combine = (sheets) => {
 	//fileNames = replaceAll(fileNames);
 	readRange(sheets);
@@ -16,7 +25,7 @@ const checkTypeOfFile = (plik) =>{
 	}
 }
 const readRange = (sheets) =>{
-	let firstRange = 2;
+	//let firstRange = 2;
 	let obj = {}
 	let arrayTmp = [];
 	for (let i = 0;i<sheets.length;i++) {
@@ -152,5 +161,6 @@ module.exports = {
 	combine,
 	makeEXEL,
 	generateFileNames,
-	generateDate
+	generateDate,
+	setStartParameter
 }
