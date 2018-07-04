@@ -6,10 +6,9 @@ class consoleRead  {
 		this.error = [];
 	}
 	getParameter(param){
-		console.log(args);
 		let isParamter = args.indexOf(`--${param}`);
 		if(isParamter !== -1 && args[isParamter+1] !== "undefined"){
-			this.tab.push(args[isParamter+1]);
+			this.tab.push([param,args[isParamter+1]]);
 		} else {
 			this.error.push(`Nie podano parametru dla ${param}`);
 		}
@@ -23,14 +22,13 @@ class consoleRead  {
 		return this.error;
 	}
 	getOneParameter(name){
-		console.log(this.tab);
-		this.tab.forEach((param)=>{
-			if(param == name){
-				return getParameter(name);
-			} else {
-				return null;
+		 let p = null;
+		 this.tab.forEach((param)=>{
+			if(name == param[0]){
+				p = param[1];
 			}
-		})
+		});
+	return p;
 	}
 }
 module.exports = () => new consoleRead();

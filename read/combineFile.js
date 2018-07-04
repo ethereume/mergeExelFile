@@ -14,7 +14,6 @@ const setStartParameter = (arr) =>{
 }
 
 const combine = (sheets) => {
-	//fileNames = replaceAll(fileNames);
 	readRange(sheets);
 }
 const checkTypeOfFile = (plik) =>{

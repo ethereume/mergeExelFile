@@ -13,11 +13,12 @@ consoleRead.checkDataParameter(["path","sr","er"])
 	//console.log(startParameter);
 	//console.log(endParameter);
 	let parameter = preper.letterPreper(startParameter,endParameter);
+	//console.log(parameter);
 	setStartParameter(parameter);
-	//let f = new file("exel");
-	//f.openDir();
-	//combine(f.getTab());
-	//XLSX.writeFile(makeEXEL("Merge"),`Merge-${generateDate()}-${generateFileNames()}.xlsx`);
+	let f = new file("exel");
+	f.openDir();
+	combine(f.getTab());
+	XLSX.writeFile(makeEXEL("Merge"),`Merge-${generateDate()}-${generateFileNames()}.xlsx`);
 	//let path = consoleRead.getOneParameter("path") || ;
 	//console.log(`Podano parametry ${startParameter} i ${endParameter}`);
 
