@@ -24,7 +24,7 @@ const checkTypeOfFile = (plik) =>{
 	}
 }
 const readRange = (sheets) =>{
-	//let firstRange = 2;
+	let firstR = firstRange;
 	let obj = {}
 	let arrayTmp = [];
 	for (let i = 0;i<sheets.length;i++) {
@@ -35,16 +35,16 @@ const readRange = (sheets) =>{
 			//console.log(obj.sheet);
 			sheet = sheets[i].Sheets[obj.sheet];
 			if(!checkTypeOfFile(sheet)){
-				firstRange = 1;
+				firstR = 1;
 			}
-			let beginRange = horizontal + firstRange;
+			let beginRange = horizontal + firstR;
 
-			for(let c = firstRange;c<beginRange;c++){
+			for(let c = firstR;c<beginRange;c++){
 				//console.log(c);
 				arrayTmp.push(getDataFromSheet(c));
 			}
 			//console.log("-------------------");
-		firstRange = 2;
+		firstR = firstRange;
 		obj.parameter = arrayTmp;
 		tabsArray.push(obj);
 		obj = {};
