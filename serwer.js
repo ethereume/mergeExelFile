@@ -4,12 +4,13 @@ const file = require('./read/file.js');
 const XLSX = require('xlsx');
 const {combine,makeEXEL,generateFileNames,generateDate,setStartParameter} = require('./read/combineFile.js');
 
-consoleRead.checkDataParameter(["path","sr","er"])
+consoleRead.checkDataParameter(["path","start","end"])
 	consoleRead.getError().forEach((err)=>{
 		console.log(err);
 	});
-	let startParameter = consoleRead.getOneParameter("sr") || "A2";
-	let endParameter = consoleRead.getOneParameter("er") || "G6";
+	console.log();
+	let startParameter = consoleRead.getOneParameter("start") || "A2";
+	let endParameter = consoleRead.getOneParameter("end") || "G7";
 	//console.log(startParameter);
 	//console.log(endParameter);
 	let parameter = preper.letterPreper(startParameter,endParameter);

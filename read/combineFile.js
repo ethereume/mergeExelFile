@@ -7,8 +7,8 @@ let tabsArray = [];
 let sheet = null;
 
 const setStartParameter = (arr) =>{
-	console.log(arr);
-	horizontal = arr[0] || 6;
+	//console.log(arr);
+	horizontal = arr[0] || 7;
 	firstRange = arr[1] || 2;
 	vertical = arr[2]|| ["A","B","C","D","E","F","G"];
 }
@@ -34,11 +34,12 @@ const readRange = (sheets) =>{
 				}
 			//console.log(obj.sheet);
 			sheet = sheets[i].Sheets[obj.sheet];
-			if(!checkTypeOfFile(sheet)){
+			if(!checkTypeOfFile(sheet) && firstR == 2){
 				firstR = 1;
 			}
-			let beginRange = horizontal + firstR;
-
+			//console.log("Licznik "+firstR);
+			let beginRange = horizontal+firstR;
+			//console.log(beginRange);
 			for(let c = firstR;c<beginRange;c++){
 				//console.log(c);
 				arrayTmp.push(getDataFromSheet(c));
@@ -60,7 +61,7 @@ const getDataFromSheet = (number) =>{
 		//console.log(number);
 		
 		let combineString = letter+number;
-		//console.log(sheet[combineString]);
+		//console.log(combineString);
 		tmpTab.push(sheet[combineString]);	
 	});
 	return tmpTab;
@@ -89,7 +90,8 @@ const sheet_from_array_of_arrays = (data) => {
 	return ws;
 }
 const makeHorizontalArrays = (array) =>{
-	let k = 7,tabTMP = [],tabInArray = [];
+	let dlugosc = vertical.length;
+	let k = dlugosc,tabTMP = [],tabInArray = [];
 
 	for(var j = 0;j<array.length;j++){
 		tabTMP.push([array[j][0]]);
@@ -100,10 +102,10 @@ const makeHorizontalArrays = (array) =>{
 					tabInArray.push(array[j][i]);
 					tabTMP.push(tabInArray);
 					tabInArray = [];
-					k +=7;
+					k +=dlugosc;
 				}
 		}
-		k = 7;
+		k = dlugosc;
 		tabInArray = [];
 	}
 	return tabTMP;
