@@ -12,15 +12,17 @@ consoleRead.checkDataParameter(["path","start","end"])
 	let startParameter = consoleRead.getOneParameter("start") || "A2";
 	let endParameter = consoleRead.getOneParameter("end") || "G7";
 	let path = consoleRead.getOneParameter("path") || __filename;
-	//console.log(startParameter);
+	//console.log(path);
 	//console.log(endParameter);
 	let parameter = preper.letterPreper(startParameter,endParameter);
 	//console.log(parameter);
-	//setStartParameter(parameter);
-	//let f = new file("exel");
-	//f.openDir();
-	//combine(f.getTab());
-	//XLSX.writeFile(makeEXEL("Merge"),`Merge-${generateDate()}-${generateFileNames()}.xlsx`);
+	setStartParameter(parameter);
+	let f = new file("exel");
+	f.openDir(path);
+	combine(f.getTab());
+	XLSX.writeFile(makeEXEL("Merge"),`Merge-${generateDate()}-${generateFileNames()}.xlsx`);
+	console.log();
+	console.log("Skonczone !");
 	//console.log(`Podano parametry ${startParameter} i ${endParameter}`);
 
 
