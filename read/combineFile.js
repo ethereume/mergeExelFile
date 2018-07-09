@@ -90,27 +90,28 @@ const sheet_from_array_of_arrays = (data) => {
 	return ws;
 }
 const makeHorizontalArrays = (array) =>{
-	let dlugosc = vertical.length;
-	let k = dlugosc,tabTMP = [],tabInArray = [];
-
+	let dlugosc = vertical.length,k = dlugosc,tabTMP = [],tabInArray = [];
 	for(var j = 0;j<array.length;j++){
 		tabTMP.push([array[j][0]]);
-		for(var i = 1;i<array[j].length;i++){
-				if(i != k){
+		tabTMP.push([array[j][1]]);
+		for(var i = 2;i<array[j].length;i++){
+				if(i <= k){
 					tabInArray.push(array[j][i]);
+
 				} else {
 					tabInArray.push(array[j][i]);
 					tabTMP.push(tabInArray);
 					tabInArray = [];
 					k +=dlugosc;
-				}
+				}	
 		}
+		//console.log(tabInArray);
 		k = dlugosc;
 		tabInArray = [];
 	}
 	return tabTMP;
 };
-const makeFile = (data) => {
+const makeFile = (data,paths) => {
 		const getNames = (obj) => {
 			if(obj === undefined) {
 				return "brak";
@@ -118,17 +119,18 @@ const makeFile = (data) => {
 				return obj.v;
 			}
 		};	
-		let tab = [];
-		let t = [];
+		let tab = [],t = [],p = paths,i = 0;
 		data.forEach((obj)=>{
 				tab.push({v:obj.sheet});
+				tab.push({v:p[i]});
 				obj.parameter.forEach((pojedyncza)=>{
 					tab = [...tab,...pojedyncza];
-				});
+				});	
 			t.push(tab.map((obj)=>{
 				return getNames(obj);
 			}));
 			tab = [];
+			i++;
 		});
 	return sheet_from_array_of_arrays(makeHorizontalArrays(t));
 };
@@ -145,18 +147,20 @@ const generateDate = () =>{
 	let month =  d.getMonth() < 10 ? "0"+(d.getMonth()+1):d.getMonth() + 1; 
 	return `${day}.${month}.${d.getFullYear()}`;
 };
-const makeEXEL = (fileName) => {
+const makeEXEL = (fileName) =>{
+	return (paths) => {
 
-	function Workbook() {
-		if(!(this instanceof Workbook)) return new Workbook();
-		this.SheetNames = [];
-		this.Sheets = {};
+		function Workbook() {
+			if(!(this instanceof Workbook)) return new Workbook();
+			this.SheetNames = [];
+			this.Sheets = {};
+		}
+		let work = new Workbook();
+		work.SheetNames.push(fileName);
+		work.Sheets[fileName] = makeFile(tabsArray,paths);
+		//console.log(work[fileName]);
+		return work;
 	}
-	let work = new Workbook();
-	work.SheetNames.push(fileName);
-	work.Sheets[fileName] = makeFile(tabsArray);
-	//console.log(work[fileName]);
-	return work;
 }
 module.exports = {
 	combine,

@@ -6,7 +6,7 @@ class consoleRead  {
 		this.error = [];
 	}
 	getParameter(param){
-		let isParamter = args.indexOf(`--${param}`);
+		let isParamter = args.indexOf(`-${param}`);
 		if(isParamter !== -1 && args[isParamter+1] !== "undefined"){
 			this.tab.push([param,args[isParamter+1]]);
 		} else {
