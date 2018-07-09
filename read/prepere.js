@@ -7,14 +7,19 @@ const prepereAlfaber = (let1,let2) =>{
 	if(let1.length > 2 || let1.length == 0){
 		console.log("Nieprawidlowy pierwszy paramert, podaj np A2");
 		return;
-	} else if(let2.length > 2 || let2.length == 0) {
-		console.log("Nieprawidlowy drugi paramert, podaj np A2");
+	} else if(let2.length > 3 || let2.length == 0) {
+		console.log("Nieprawidlowy drugi paramert, podaj np G7");
 		return;
 	}
+	let param2 = null;
 	let param1 = let1.charAt(1);
-	let param2 = let2.charAt(1);
-	//console.log(param1);
-	//console.log(param2);
+	if(let2.length == 2){
+		param2 = let2.charAt(1);
+	} else if(let2.length == 3){
+		param2 = let2.charAt(1)+let2.charAt(2);
+	}
+	console.log(param1);
+	console.log(param2);
 	let horizontal = parseInt(param2) - parseInt(param1) + 1;
 	let firstRange = parseInt(param1);
 	if(horizontal <= 0){
