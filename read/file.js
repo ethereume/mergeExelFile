@@ -8,6 +8,8 @@ class File {
 		this.tab = [];
 		this.tabPath = [];
 		this.functionName = "";
+		this.iloscODS = 0;
+		this.IloscPlikow = 0;
 	};	
 	getFileProperty(path_,fileName){
 		//for(let file in fileName){
@@ -17,8 +19,10 @@ class File {
 				let worksheet = xlsx.readFile(path_);
 				this.tab.push(worksheet);
 				this.tabPath.push(path_);
+				this.IloscPlikow++;
 			} else if(this.replaceODS(fileName)){
 				console.log(`-----UWAGA------ znalazlem plik ODS w ${path_} -----PLIK----- ${fileName}`);
+				this.iloscODS++;
 			}
 		//}
 	};
@@ -62,6 +66,12 @@ class File {
 	};
 	getPath(){
 		return this.tabPath;
+	}
+	getIloscPlikow(){
+		return this.IloscPlikow;
+	}
+	iloscODS(){
+		return this.iloscODS;
 	}
 }
 module.exports = File;
