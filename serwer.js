@@ -22,7 +22,8 @@ consoleRead.checkDataParameter(["p","s","e"])
 	combine(f.getTab());
 	XLSX.writeFile(makeEXEL("Merge")(f.getPath()),`Merge-${generateDate()}-${generateFileNames()}.xlsx`);
 	console.log();
-	console.log(`Skonczone ! Polaczono ${f.getIloscPlikow()} znaleziono plikow ODS ${f.iloscODS()}`);
+	console.log(`Skonczone !`);
+	console.log(`Poloczono ${f.getIloscPlikow()} plikow exel i  znaleziono ${f.iloscOD()} plikow ODS`);
 	//console.log(`Podano parametry ${startParameter} i ${endParameter}`);
 
 

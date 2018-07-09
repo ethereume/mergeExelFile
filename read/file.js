@@ -66,12 +66,12 @@ class File {
 	};
 	getPath(){
 		return this.tabPath;
-	}
+	};
 	getIloscPlikow(){
 		return this.IloscPlikow;
-	}
-	iloscODS(){
+	};
+	iloscOD(){
 		return this.iloscODS;
-	}
+	};
 }
 module.exports = File;
